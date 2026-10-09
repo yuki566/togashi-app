@@ -1,0 +1,11 @@
+# OSやエディタが作るファイル
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# 一時ファイル
+*.log
+*.tmp
+node_modules/
