@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--
+  index.html : アプリの土台になるファイル
+
+  このファイルには「画面を表示する枠（#app）」だけがあります。
+  画面の中身（ホーム・診断・結果）は、js/screens/ の中のファイルが作ります。
+  読み込む順番が大事です（下にあるものほど、上のものを使います）。
+-->
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>富樫氏 史跡めぐり</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main id="app" aria-live="polite">
+    <p class="loading">読み込み中…</p>
+  </main>
+
+  <!-- 1. 道具（データ・保存・診断の計算） -->
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/diagnosis.js"></script>
+  <!-- 2. 画面（S1 ホーム / S2 診断 / S3 結果 / S4 準備中） -->
+  <script src="js/screens/home.js"></script>
+  <script src="js/screens/quiz.js"></script>
+  <script src="js/screens/result.js"></script>
+  <script src="js/screens/spots.js"></script>
+  <!-- 3. 画面の切り替え役（最後に読み込む） -->
+  <script src="js/app.js"></script>
+</body>
+</html>

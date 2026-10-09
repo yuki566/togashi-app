@@ -1,0 +1,126 @@
+/*
+  style.css : アプリの見た目
+
+  スマホで見ることを前提に作っています（幅が狭い画面が基本）。
+  色は一番上の「:root」にまとめてあるので、変えたいときはここだけ直せばOKです。
+*/
+
+:root {
+  --bg: #faf7f2;          /* 背景（和紙のような色） */
+  --text: #2b2b2b;        /* 文字 */
+  --muted: #6b6b6b;       /* 補足の文字 */
+  --main: #7a2e2e;        /* メインの色（えんじ色） */
+  --main-dark: #5c2121;   /* ボタンを押したときの色 */
+  --card: #ffffff;        /* カードの背景 */
+  --line: #e2dccf;        /* 線 */
+
+  /* タイプごとの色 */
+  --type-tochi: #2f5d8a;  /* 統治 */
+  --type-buyu: #a8362f;   /* 武勇 */
+  --type-shinko: #6a4c93; /* 信仰 */
+  --type-manabi: #2f7d4f; /* 学び */
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+  line-height: 1.7;
+}
+
+/* アプリ全体の幅（スマホ幅で中央に表示） */
+#app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+  min-height: 100vh;
+}
+
+h1 { font-size: 1.6rem; margin: 0 0 8px; color: var(--main); }
+h2 { font-size: 1.2rem; margin: 24px 0 8px; }
+p  { margin: 0 0 12px; }
+
+.loading, .note { color: var(--muted); font-size: 0.9rem; }
+
+/* カード */
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+/* ボタン */
+.btn {
+  display: block;
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  border: 2px solid var(--main);
+  border-radius: 10px;
+  background: var(--main);
+  color: #fff;
+  font-size: 1rem;
+  font-family: inherit;
+  text-align: center;
+  cursor: pointer;
+}
+.btn:active { background: var(--main-dark); }
+.btn:focus-visible { outline: 3px solid #e8b04a; outline-offset: 2px; }
+
+/* 白いボタン（サブの操作用） */
+.btn.sub { background: #fff; color: var(--main); }
+.btn.sub:active { background: #f1e9e9; }
+
+.btn[disabled] { opacity: 0.4; cursor: default; }
+
+/* 診断：進み具合のバー */
+.progress { margin-bottom: 16px; }
+.progress-text { font-size: 0.9rem; color: var(--muted); margin-bottom: 4px; }
+.progress-bar { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--main); transition: width 0.2s; }
+
+.question { font-size: 1.15rem; font-weight: bold; margin: 8px 0 16px; }
+
+/* 診断：選択肢（前に選んだものは色がつく） */
+.choice {
+  background: #fff;
+  color: var(--text);
+  border-color: var(--line);
+  text-align: left;
+}
+.choice:active { background: #f6efe6; }
+.choice.selected { border-color: var(--main); background: #f6eaea; }
+
+/* 結果 */
+.type-badge {
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+.type-統治 { background: var(--type-tochi); }
+.type-武勇 { background: var(--type-buyu); }
+.type-信仰 { background: var(--type-shinko); }
+.type-学び { background: var(--type-manabi); }
+
+.catch { font-size: 1.05rem; color: var(--muted); margin-bottom: 12px; }
+
+.spot-list { margin: 0 0 16px; padding-left: 20px; }
+.spot-list li { margin-bottom: 4px; }
+
+/* 仮データであることを知らせる帯（本物のデータに替えたら消す） */
+.draft-banner {
+  background: #fff4d6;
+  border: 1px solid #e8c766;
+  border-radius: 8px;
+  padding: 6px 10px;
+  margin-bottom: 16px;
+  font-size: 0.8rem;
+}

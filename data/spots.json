@@ -1,0 +1,10 @@
+[
+  { "name": "守護所富樫館跡", "types": ["統治"], "draft": true },
+  { "name": "富樫館跡", "types": ["統治", "武勇"], "draft": true },
+  { "name": "布市神社", "types": ["武勇", "信仰"], "draft": true },
+  { "name": "富樫家国像", "types": ["統治"], "draft": true },
+  { "name": "稲荷神社", "types": ["武勇", "信仰"], "draft": true },
+  { "name": "大乗寺跡", "types": ["信仰", "学び"], "draft": true },
+  { "name": "郷土資料館NoNo", "types": ["学び"], "draft": true },
+  { "name": "ふるさと歴史館", "types": ["学び"], "draft": true }
+]
