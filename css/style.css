@@ -1,24 +1,40 @@
 /*
-  style.css : アプリの見た目
+  style.css : アプリの見た目（和風シック版）
 
+  役割：全画面の色・文字・ボタン・カードなどの見た目を決めるファイルです。
   スマホで見ることを前提に作っています（幅が狭い画面が基本）。
-  色は一番上の「:root」にまとめてあるので、変えたいときはここだけ直せばOKです。
+
+  ■ 変えたのは「見た目だけ」です
+  - クラス名（.card .btn .choice など）は前のままなので、JSは変更不要です。
+  - 色は一番上の「:root」にまとめてあります。変えたいときはここだけ直せばOKです。
+
+  ■ 色のイメージ（和の色名）
+  - 背景：藍に近い紺（暗すぎない）
+  - 枠・ボタン：くすんだ金（金茶）
+  - 文字：生成り色
 */
 
 :root {
-  --bg: #faf7f2;          /* 背景（和紙のような色） */
-  --text: #2b2b2b;        /* 文字 */
-  --muted: #6b6b6b;       /* 補足の文字 */
-  --main: #7a2e2e;        /* メインの色（えんじ色） */
-  --main-dark: #5c2121;   /* ボタンを押したときの色 */
-  --card: #ffffff;        /* カードの背景 */
-  --line: #e2dccf;        /* 線 */
+  --bg: #26324a;          /* 背景（藍に近い紺。暗くなりすぎない明るさ） */
+  --card: #33415f;        /* カード・選択肢の背景 */
+  --card-sel: #3f4f73;    /* 選んだ選択肢の背景 */
+  --text: #f4efe3;        /* 文字（生成り色） */
+  --muted: #cfc8b8;       /* 補足の文字 */
+  --main: #c8a95a;        /* メインの色（金茶）：ボタン・枠・見出し */
+  --main-dark: #a88b3f;   /* ボタンを押したときの色 */
+  --on-main: #1f2740;     /* 金色の上に乗せる文字（濃い紺） */
+  --line: #56668a;        /* 細い線 */
+  --focus: #f0e2b0;       /* キーボード操作時の目印 */
 
-  /* タイプごとの色 */
-  --type-tochi: #2f5d8a;  /* 統治 */
-  --type-buyu: #a8362f;   /* 武勇 */
-  --type-shinko: #6a4c93; /* 信仰 */
-  --type-manabi: #2f7d4f; /* 学び */
+  /* タイプごとの色（暗い背景でも目立つよう、明るめの色にしています） */
+  --type-tochi: #8fb4d9;  /* 統治 */
+  --type-buyu: #e59a90;   /* 武勇 */
+  --type-shinko: #bba8de; /* 信仰 */
+  --type-manabi: #94cfa6; /* 学び */
+
+  /* 書体：本文は明朝体、補足の小さい文字はゴシック体（小さい文字は明朝だと読みにくいため） */
+  --font-serif: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", serif;
+  --font-sans: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -27,8 +43,10 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
-  line-height: 1.7;
+  font-family: var(--font-serif);
+  font-size: 16px;            /* スマホで読める大きさ（これより小さくしない） */
+  line-height: 1.9;           /* 明朝体は行間を広めにすると読みやすい */
+  letter-spacing: 0.03em;
 }
 
 /* アプリ全体の幅（スマホ幅で中央に表示） */
@@ -39,70 +57,127 @@ body {
   min-height: 100vh;
 }
 
-h1 { font-size: 1.6rem; margin: 0 0 8px; color: var(--main); }
-h2 { font-size: 1.2rem; margin: 24px 0 8px; }
+h1 { font-size: 1.6rem; margin: 0 0 8px; color: var(--main); letter-spacing: 0.08em; }
+h2 {
+  font-size: 1.2rem;
+  margin: 28px 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);   /* 見出しの下に細い線 */
+}
 p  { margin: 0 0 12px; }
 
-.loading, .note { color: var(--muted); font-size: 0.9rem; }
+.loading, .note {
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+}
 
-/* カード */
+/* カード（四隅に金色のかぎ括弧がつく）
+   かぎ括弧は画像ではなく、CSSの線で描いています。
+   16px 2px = 横線の長さ、2px 16px = 縦線の長さ */
 .card {
-  background: var(--card);
+  background-color: var(--card);
+  background-image:
+    linear-gradient(var(--main), var(--main)), linear-gradient(var(--main), var(--main)),
+    linear-gradient(var(--main), var(--main)), linear-gradient(var(--main), var(--main)),
+    linear-gradient(var(--main), var(--main)), linear-gradient(var(--main), var(--main)),
+    linear-gradient(var(--main), var(--main)), linear-gradient(var(--main), var(--main));
+  background-repeat: no-repeat;
+  background-position:
+    left top, left top, right top, right top,
+    left bottom, left bottom, right bottom, right bottom;
+  background-size:
+    16px 2px, 2px 16px, 16px 2px, 2px 16px,
+    16px 2px, 2px 16px, 16px 2px, 2px 16px;
   border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 16px;
+  border-radius: 2px;          /* 角はほぼ直角にして、きりっとした印象に */
+  padding: 20px 18px;
   margin-bottom: 16px;
 }
 
-/* ボタン */
+/* ボタン（金色。文字は濃い紺） */
 .btn {
   display: block;
   width: 100%;
-  padding: 14px 16px;
+  min-height: 48px;            /* 指で押しやすい高さ */
+  padding: 12px 16px;
   margin-bottom: 12px;
-  border: 2px solid var(--main);
-  border-radius: 10px;
+  border: 1px solid var(--main);
+  border-radius: 2px;
   background: var(--main);
-  color: #fff;
+  color: var(--on-main);
   font-size: 1rem;
   font-family: inherit;
+  font-weight: bold;
+  letter-spacing: 0.08em;
   text-align: center;
   cursor: pointer;
 }
 .btn:active { background: var(--main-dark); }
-.btn:focus-visible { outline: 3px solid #e8b04a; outline-offset: 2px; }
+.btn:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 
-/* 白いボタン（サブの操作用） */
-.btn.sub { background: #fff; color: var(--main); }
-.btn.sub:active { background: #f1e9e9; }
+/* サブのボタン（枠だけ金色。メインの操作と区別するため） */
+.btn.sub { background: transparent; color: var(--main); }
+.btn.sub:active { background: rgba(200, 169, 90, 0.18); }
 
 .btn[disabled] { opacity: 0.4; cursor: default; }
 
 /* 診断：進み具合のバー */
 .progress { margin-bottom: 16px; }
-.progress-text { font-size: 0.9rem; color: var(--muted); margin-bottom: 4px; }
-.progress-bar { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+.progress-text { font-family: var(--font-sans); font-size: 0.9rem; color: var(--muted); margin-bottom: 4px; }
+.progress-bar { height: 4px; background: var(--line); overflow: hidden; }
 .progress-fill { height: 100%; background: var(--main); transition: width 0.2s; }
 
-.question { font-size: 1.15rem; font-weight: bold; margin: 8px 0 16px; }
+.question { font-size: 1.2rem; font-weight: bold; margin: 8px 0 20px; line-height: 1.7; }
 
 /* 診断：選択肢（前に選んだものは色がつく） */
 .choice {
-  background: #fff;
+  display: flex;               /* 左の「甲・乙…」の印と文章を横に並べる */
+  align-items: center;
+  gap: 12px;
+  background: var(--card);
   color: var(--text);
   border-color: var(--line);
+  font-weight: normal;
   text-align: left;
+  letter-spacing: 0.03em;
 }
-.choice:active { background: #f6efe6; }
-.choice.selected { border-color: var(--main); background: #f6eaea; }
+.choice:active { background: var(--card-sel); }
+.choice.selected {
+  border-color: var(--main);
+  background: var(--card-sel);
+  box-shadow: inset 3px 0 0 var(--main);   /* 選んだものの左側に金色の線 */
+}
 
-/* 結果 */
+/* 選択肢の左につく「甲・乙・丙・丁」の印
+   ブラウザの「番号を数える機能」を使っています（JSの変更は不要）。
+   もし全部「甲」になったり表示がおかしくなったら、この2つのブロックを消せば元に戻ります。 */
+  #app { counter-reset: choice; }
+.choice::before {
+  counter-increment: choice;
+  content: counter(choice, cjk-heavenly-stem);
+  flex: none;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--main);
+  color: var(--main);
+  font-size: 0.9rem;
+  line-height: 1;
+}
+.choice.selected::before { background: var(--main); color: var(--on-main); }
+
+/* 結果：タイプ名のラベル（色は明るいので、文字は濃い紺にしています） */
 .type-badge {
   display: inline-block;
-  padding: 2px 12px;
+  padding: 2px 14px;
   border-radius: 999px;
-  color: #fff;
+  color: var(--on-main);
+  font-family: var(--font-sans);
   font-size: 0.85rem;
+  font-weight: bold;
   margin-bottom: 8px;
 }
 .type-統治 { background: var(--type-tochi); }
@@ -117,10 +192,16 @@ p  { margin: 0 0 12px; }
 
 /* 仮データであることを知らせる帯（本物のデータに替えたら消す） */
 .draft-banner {
-  background: #fff4d6;
-  border: 1px solid #e8c766;
-  border-radius: 8px;
+  background: rgba(200, 169, 90, 0.16);
+  border: 1px solid var(--main);
+  border-radius: 2px;
   padding: 6px 10px;
   margin-bottom: 16px;
+  font-family: var(--font-sans);
   font-size: 0.8rem;
+}
+
+/* 動きが苦手な人向けの設定（端末側で「視差効果を減らす」がオンのとき、動きを止める） */
+@media (prefers-reduced-motion: reduce) {
+  .progress-fill { transition: none; }
 }
