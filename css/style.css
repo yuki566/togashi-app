@@ -201,6 +201,164 @@ p  { margin: 0 0 12px; }
   font-size: 0.8rem;
 }
 
+/* =====================================================================
+   S4 スポット一覧・S5 スポット詳細（担当C）
+   上の「和風シック版」の色（紺・金茶・生成り）に合わせて作っています。
+   新しい色は増やさず、:root の色だけを使っています。
+   ===================================================================== */
+
+/* ----- S4：木札（スポット1か所ぶん） ----- */
+
+.fuda-list { margin: 16px 0 20px; }
+
+/* 木札。押せるボタンだが、見た目は札にする */
+.fuda {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 48px;                 /* 指で押しやすい高さ */
+  text-align: left;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 12px 64px 12px 44px;     /* 左は札の色の帯、右は「おすすめ」の印のぶん空ける */
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.fuda:active { background: var(--card-sel); }
+.fuda:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+/* 札の左端の色の帯（--c はタイプの色） */
+.fuda::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 28px;
+  background: var(--c, var(--main));
+}
+/* 札を吊るす穴（背景の紺で丸く抜く） */
+.fuda::after {
+  content: "";
+  position: absolute;
+  left: 9px; top: 14px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--bg);
+}
+.edge-統治 { --c: var(--type-tochi); }
+.edge-武勇 { --c: var(--type-buyu); }
+.edge-信仰 { --c: var(--type-shinko); }
+.edge-学び { --c: var(--type-manabi); }
+
+.fuda-name {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: bold;
+  letter-spacing: 0.06em;
+}
+.fuda-tags { display: block; margin-top: 4px; }
+
+/* 木札の中の距離（空のときは何も出さない） */
+.fuda-dist {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.fuda-dist:empty { display: none; }
+
+/* タイプの小さな印（統治・武勇 など）。色は明るいので、文字は濃い紺 */
+.tag {
+  display: inline-block;
+  color: var(--on-main);
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: bold;
+  padding: 0 8px;
+  margin-right: 4px;
+  border-radius: 999px;
+}
+
+/* 「おすすめ」の印（金の線の四角を少し傾けて、はんこ風に） */
+.seal {
+  position: absolute;
+  right: 12px; top: 50%;
+  width: 42px; height: 42px;
+  margin-top: -21px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.68rem;
+  font-weight: bold;
+  line-height: 1.15;
+  letter-spacing: 0;
+  padding: 2px 7px;                 /* 中の幅を2文字ぶんにして、「おす／すめ」の2行で折り返す */
+  color: var(--main);
+  border: 2px solid var(--main);
+  border-radius: 3px;
+  background: rgba(200, 169, 90, 0.12);
+  transform: rotate(-6deg);
+}
+
+/* 「現在地から距離を表示」ボタンと、その結果の文 */
+.loc-btn { margin: 4px 0 6px; }
+.loc-status { margin: 0 4px 8px; font-size: 0.82rem; }
+.loc-status:empty { display: none; }
+
+/* ----- S5：額縁と巻物 ----- */
+
+/* 写真の額縁（金茶の二重線） */
+.frame {
+  padding: 6px;
+  margin: 4px 4px 18px;
+  background: var(--card);
+  border: 1px solid var(--main);
+  box-shadow: 0 0 0 3px var(--bg), 0 0 0 4px var(--main);
+}
+.frame img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+/* 写真がまだ無いときの枠（斜めの縞） */
+.photo-empty {
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  background: repeating-linear-gradient(45deg, var(--card) 0 9px, var(--card-sel) 9px 18px);
+}
+
+.detail-tags { margin: -2px 0 12px; }
+
+/* 巻物（上下に金茶の軸。見出しは字間を広くとる） */
+.maki {
+  background: var(--card);
+  border-top: 4px solid var(--main-dark);
+  border-bottom: 4px solid var(--main-dark);
+  padding: 10px 16px 2px;
+  margin-bottom: 14px;
+}
+.maki-title {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: var(--main);
+  letter-spacing: 0.3em;
+}
+.maki p { margin: 2px 0 10px; }
+
+/* <a> をボタンの見た目にするとき（地図アプリで開く） */
+a.btn { text-decoration: none; margin-top: 8px; }
+
 /* 動きが苦手な人向けの設定（端末側で「視差効果を減らす」がオンのとき、動きを止める） */
 @media (prefers-reduced-motion: reduce) {
   .progress-fill { transition: none; }
