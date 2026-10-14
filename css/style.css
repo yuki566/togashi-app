@@ -1,24 +1,43 @@
 /*
   style.css : アプリの見た目
 
+  デザイン：W1「加賀五彩・木札と朱印」
+    - 色は、加賀地方の伝統色「加賀五彩」（臙脂・黄土・草・古代紫・藍）を土台にしています
+    - 家紋や画像は使わず、CSSだけで和風の飾り（市松の帯など）を描いています
+    - 見出しは明朝体、本文はゴシック体
+
   スマホで見ることを前提に作っています（幅が狭い画面が基本）。
   色は一番上の「:root」にまとめてあるので、変えたいときはここだけ直せばOKです。
 */
 
 :root {
-  --bg: #faf7f2;          /* 背景（和紙のような色） */
-  --text: #2b2b2b;        /* 文字 */
-  --muted: #6b6b6b;       /* 補足の文字 */
-  --main: #7a2e2e;        /* メインの色（えんじ色） */
-  --main-dark: #5c2121;   /* ボタンを押したときの色 */
-  --card: #ffffff;        /* カードの背景 */
-  --line: #e2dccf;        /* 線 */
+  /* 地の色・文字 */
+  --bg: #f5efdf;          /* 背景（和紙の色） */
+  --paper: #fffaf0;       /* カードや札の色（明るい和紙） */
+  --text: #2d2820;        /* 文字（墨に近い茶） */
+  --muted: #7b705c;       /* 補足の文字 */
+  --line: #d8cdb1;        /* 線 */
+  --shadow: #e5dcc4;      /* カードの影 */
 
-  /* タイプごとの色 */
-  --type-tochi: #2f5d8a;  /* 統治 */
-  --type-buyu: #a8362f;   /* 武勇 */
-  --type-shinko: #6a4c93; /* 信仰 */
-  --type-manabi: #2f7d4f; /* 学び */
+  /* 加賀五彩 */
+  --ai: #2b4a6b;          /* 藍：見出し・サブのボタン */
+  --ai-dark: #25405c;     /* 藍（濃い）：市松の帯 */
+  --enji: #8e2f2f;        /* 臙脂：メインのボタン */
+  --enji-dark: #6f2323;   /* 臙脂（濃い）：ボタンを押したとき */
+  --odo: #b98b3e;         /* 黄土：飾りの線 */
+  --kusa: #5f7a3a;        /* 草 */
+  --kodaimurasaki: #6c4a6e; /* 古代紫 */
+  --shu: #b3392e;         /* 朱：朱印（おすすめの印） */
+
+  /* タイプごとの色（加賀五彩から割り当て） */
+  --type-tochi: var(--ai);              /* 統治 = 藍 */
+  --type-buyu: var(--enji);             /* 武勇 = 臙脂 */
+  --type-shinko: var(--kodaimurasaki);  /* 信仰 = 古代紫 */
+  --type-manabi: var(--kusa);           /* 学び = 草 */
+
+  /* 文字の種類 */
+  --font-mincho: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "MS PMincho", serif;
+  --font-gothic: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -27,8 +46,17 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+  font-family: var(--font-gothic);
   line-height: 1.7;
+}
+
+/* 画面のいちばん上の飾り：藍の市松模様の帯（すべての画面に出る） */
+body::before {
+  content: "";
+  display: block;
+  height: 12px;
+  background: conic-gradient(var(--ai-dark) 25%, var(--ai) 0 50%, var(--ai-dark) 0 75%, var(--ai) 0) 0 0 / 12px 12px;
+  border-bottom: 2px solid var(--odo);
 }
 
 /* アプリ全体の幅（スマホ幅で中央に表示） */
@@ -39,42 +67,51 @@ body {
   min-height: 100vh;
 }
 
-h1 { font-size: 1.6rem; margin: 0 0 8px; color: var(--main); }
-h2 { font-size: 1.2rem; margin: 24px 0 8px; }
+/* 見出しは明朝体で、和の雰囲気を出す */
+h1, h2 { font-family: var(--font-mincho); letter-spacing: 0.06em; }
+h1 { font-size: 1.6rem; margin: 0 0 8px; color: var(--ai); }
+h2 {
+  font-size: 1.15rem;
+  margin: 24px 0 10px;
+  padding-left: 10px;
+  border-left: 4px solid var(--odo);   /* 黄土の線 */
+}
 p  { margin: 0 0 12px; }
 
 .loading, .note { color: var(--muted); font-size: 0.9rem; }
 
-/* カード */
+/* カード（明るい和紙に、少しずらした影） */
 .card {
-  background: var(--card);
+  background: var(--paper);
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 16px;
   margin-bottom: 16px;
+  box-shadow: 2px 3px 0 var(--shadow);
 }
 
-/* ボタン */
+/* ボタン（メイン = 臙脂） */
 .btn {
   display: block;
   width: 100%;
   padding: 14px 16px;
   margin-bottom: 12px;
-  border: 2px solid var(--main);
-  border-radius: 10px;
-  background: var(--main);
+  border: 2px solid var(--enji);
+  border-radius: 6px;
+  background: var(--enji);
   color: #fff;
   font-size: 1rem;
   font-family: inherit;
+  letter-spacing: 0.1em;
   text-align: center;
   cursor: pointer;
 }
-.btn:active { background: var(--main-dark); }
-.btn:focus-visible { outline: 3px solid #e8b04a; outline-offset: 2px; }
+.btn:active { background: var(--enji-dark); }
+.btn:focus-visible { outline: 3px solid var(--odo); outline-offset: 2px; }
 
-/* 白いボタン（サブの操作用） */
-.btn.sub { background: #fff; color: var(--main); }
-.btn.sub:active { background: #f1e9e9; }
+/* サブのボタン（和紙の地に、藍の線と文字） */
+.btn.sub { background: var(--paper); color: var(--ai); border-color: var(--ai); }
+.btn.sub:active { background: #ece6d6; }
 
 .btn[disabled] { opacity: 0.4; cursor: default; }
 
@@ -82,27 +119,29 @@ p  { margin: 0 0 12px; }
 .progress { margin-bottom: 16px; }
 .progress-text { font-size: 0.9rem; color: var(--muted); margin-bottom: 4px; }
 .progress-bar { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
-.progress-fill { height: 100%; background: var(--main); transition: width 0.2s; }
+.progress-fill { height: 100%; background: var(--ai); transition: width 0.2s; }
 
-.question { font-size: 1.15rem; font-weight: bold; margin: 8px 0 16px; }
+.question { font-family: var(--font-mincho); font-size: 1.2rem; font-weight: bold; margin: 8px 0 16px; }
 
 /* 診断：選択肢（前に選んだものは色がつく） */
 .choice {
-  background: #fff;
+  background: var(--paper);
   color: var(--text);
   border-color: var(--line);
+  letter-spacing: normal;
   text-align: left;
 }
-.choice:active { background: #f6efe6; }
-.choice.selected { border-color: var(--main); background: #f6eaea; }
+.choice:active { background: #f1e9d8; }
+.choice.selected { border-color: var(--enji); background: #f6e7e2; }
 
-/* 結果 */
+/* 結果：タイプの印 */
 .type-badge {
   display: inline-block;
   padding: 2px 12px;
-  border-radius: 999px;
+  border-radius: 4px;
   color: #fff;
   font-size: 0.85rem;
+  letter-spacing: 0.1em;
   margin-bottom: 8px;
 }
 .type-統治 { background: var(--type-tochi); }
@@ -110,7 +149,7 @@ p  { margin: 0 0 12px; }
 .type-信仰 { background: var(--type-shinko); }
 .type-学び { background: var(--type-manabi); }
 
-.catch { font-size: 1.05rem; color: var(--muted); margin-bottom: 12px; }
+.catch { font-family: var(--font-mincho); font-size: 1.05rem; color: var(--muted); margin-bottom: 12px; }
 
 .spot-list { margin: 0 0 16px; padding-left: 20px; }
 .spot-list li { margin-bottom: 4px; }
