@@ -210,6 +210,15 @@ p  { margin: 0 0 12px; }
 }
 .fuda-tags { display: block; margin-top: 4px; }
 
+/* 木札の中の距離（空のときは何も出さない） */
+.fuda-dist { display: block; margin-top: 4px; font-size: 0.8rem; color: var(--muted); }
+.fuda-dist:empty { display: none; }
+
+/* 「現在地から距離を表示」ボタンと、その結果の文 */
+.loc-btn { border-radius: 999px; padding: 10px 16px; margin: 4px 0 6px; }
+.loc-status { min-height: 1em; margin: 0 4px 8px; font-size: 0.82rem; }
+.loc-status:empty { display: none; }
+
 /* タイプの小さな印（統治・武勇 など） */
 .tag {
   display: inline-block;
