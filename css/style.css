@@ -154,6 +154,95 @@ p  { margin: 0 0 12px; }
 .spot-list { margin: 0 0 16px; padding-left: 20px; }
 .spot-list li { margin-bottom: 4px; }
 
+/* ===== S4 スポット一覧：木札と朱印 ===== */
+
+.fuda-list { margin: 16px 0 20px; }
+
+/* 木札（1か所ぶん）。押せるボタンだが、見た目は札にする */
+.fuda {
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 4px 10px 10px 4px;
+  padding: 12px 56px 12px 44px;   /* 左は札の色の帯、右は朱印のぶん空ける */
+  margin-bottom: 10px;
+  box-shadow: 2px 3px 0 var(--shadow);
+  cursor: pointer;
+}
+.fuda:active { transform: translate(1px, 2px); box-shadow: 1px 1px 0 var(--shadow); }
+.fuda:focus-visible { outline: 3px solid var(--odo); outline-offset: 2px; }
+
+/* 札の左端の色の帯（--c はタイプの色） */
+.fuda::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 30px;
+  background: var(--c, var(--ai));
+  border-radius: 4px 0 0 4px;
+}
+/* 札を吊るす穴 */
+.fuda::after {
+  content: "";
+  position: absolute;
+  left: 10px; top: 12px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--paper);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+.edge-統治 { --c: var(--type-tochi); }
+.edge-武勇 { --c: var(--type-buyu); }
+.edge-信仰 { --c: var(--type-shinko); }
+.edge-学び { --c: var(--type-manabi); }
+
+.fuda-name {
+  display: block;
+  font-family: var(--font-mincho);
+  font-size: 1.05rem;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+}
+.fuda-tags { display: block; margin-top: 4px; }
+
+/* タイプの小さな印（統治・武勇 など） */
+.tag {
+  display: inline-block;
+  color: #fff;
+  font-size: 0.72rem;
+  padding: 0 8px;
+  margin-right: 4px;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+}
+
+/* おすすめの朱印（少し傾けた、はんこ風の四角） */
+.seal {
+  position: absolute;
+  right: 10px; top: 50%;
+  width: 40px; height: 40px;
+  margin-top: -20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--font-mincho);
+  font-size: 0.68rem;
+  font-weight: bold;
+  line-height: 1.15;
+  padding: 2px;
+  color: var(--shu);
+  border: 2px solid var(--shu);
+  border-radius: 6px;
+  background: rgba(179, 57, 46, 0.06);
+  transform: rotate(-6deg);
+}
+
 /* 仮データであることを知らせる帯（本物のデータに替えたら消す） */
 .draft-banner {
   background: #fff4d6;
