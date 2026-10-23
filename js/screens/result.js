@@ -6,6 +6,7 @@
     - おすすめスポット3か所
     - 「ゆかりの地を見る」 → S4 スポット一覧へ
     - 「もう一度診断する」 → S2 診断へ
+    - 「ホームに戻る」 → S1 ホームへ
 
   params.type : 結果のタイプ名（例："統治"）
 */
@@ -45,5 +46,11 @@ function renderResult(root, params) {
   }));
   root.appendChild(el("button", "もう一度診断する", "btn sub", function () {
     showScreen("quiz");
+  }));
+
+  // ホームに戻るボタン
+  // 結果はすでに保存されているので、診断中と違い、確認のメッセージは出さない。
+  root.appendChild(el("button", "ホームに戻る", "btn sub", function () {
+    showScreen("home");
   }));
 }
