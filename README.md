@@ -76,7 +76,7 @@
 | S1 ホーム | 「診断をはじめる」ボタン。前回の結果があれば「前回の結果を見る」 |
 | S2 診断 | 6問（4択）を1問ずつ表示。「戻る」で前の質問へ |
 | S3 診断結果 | タイプ名・説明・おすすめスポット3か所 |
-| S4 スポット一覧 | 8か所を表示。位置情報を許可すると距離・徒歩時間も表示 |
+| S4 スポット一覧 | 10か所を表示。位置情報を許可すると距離・徒歩時間も表示 |
 | S5 スポット詳細 | 写真・解説・出典・住所・地図アプリへのリンク |
 
 追加機能（必須機能の完成後）：スタンプ獲得、スタンプ帳、結果カード
@@ -190,7 +190,7 @@ node -e "const { diagnose } = require('./js/diagnosis.js'); console.log(diagnose
 - **データの消し方**：ブラウザの設定で、このサイトのデータ（閲覧履歴・サイトデータ）を削除すると、保存した診断結果も消えます
 
 > [!NOTE]
-> 距離の計算（`calcDistance`）は準備中です。今は現在地を取得すると「距離の計算は準備中です」と表示されます。
+> 表示される距離は、現在地からスポットまでの**直線距離**です（`js/screens/spots.js` の `calcDistance`）。徒歩時間は **分速80m** で計算した目安なので、実際の道のりより短めに出ます。
 
 ---
 
@@ -209,13 +209,14 @@ node -e "const { diagnose } = require('./js/diagnosis.js'); console.log(diagnose
 - [x] 和風シック版のデザイン
 - [x] GitHub Pages での公開
 - [x] 現在地の取得（ボタンを押したときだけ）
-- [ ] 距離・徒歩時間の計算（`calcDistance`）
+- [x] 距離・徒歩時間の計算（`calcDistance`）
 
 **データ**（仮の間は、画面に「仮」「準備中」の帯が出ます）
 
 - [ ] 質問文の確定（`questions.json`）
 - [ ] タイプの説明文の確定（`types.json`）
-- [ ] スポット8か所の住所・緯度経度・解説・出典（`spots.json`）
+- [x] スポット10か所の緯度・経度（`spots.json`）
+- [ ] スポット10か所の住所・解説・出典（`spots.json`）
 - [ ] スポットの写真撮影（`images/`）
 
 **追加機能**（必須機能の完成後）
@@ -276,14 +277,14 @@ togashi-app/
 │   │   ├── home.js         S1 ホーム
 │   │   ├── quiz.js         S2 診断
 │   │   ├── result.js       S3 診断結果
-│   │   ├── spots.js        S4 スポット一覧
+│   │   ├── spots.js        S4 スポット一覧（距離の計算 calcDistance もここ）
 │   │   └── spot-detail.js  S5 スポット詳細
 │   └── app.js              画面の切り替え役（最後に読み込む）
 ├── data/
 │   ├── README.md           ★ JSONの書き方（データを直す人は最初に読む）
 │   ├── questions.json      診断の質問（6問・各4択）
 │   ├── types.json          4タイプの説明とおすすめスポット
-│   └── spots.json          スポット8か所の情報
+│   └── spots.json          スポット10か所の情報
 ├── images/                 自分たちで撮影した写真
 ├── docs/
 │   └── screenshots/        README 用の画面の写真
@@ -332,7 +333,7 @@ togashi-app/
 | **B** | S1 ホーム・S2 診断・S3 診断結果 | `js/screens/home.js` `quiz.js` `result.js` |
 | **C** | S4 スポット一覧・S5 スポット詳細、写真撮影 | `js/screens/spots.js` `spot-detail.js` `images/` |
 | **D** | 質問・タイプ・スポットのデータの中身 | `data/*.json` |
-| **E** | 診断の計算、距離の計算 | `js/diagnosis.js` |
+| **E** | 診断の計算、距離の計算 | `js/diagnosis.js`、`js/screens/spots.js` の `calcDistance` |
 
 | 時期 | 予定 |
 |---|---|
