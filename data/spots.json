@@ -1,10 +1,12 @@
 [
-  { "id": "spot-01", "name": "守護所富樫館跡", "types": ["統治"], "address": "", "lat": null, "lng": null, "description": "", "source": "", "photo": "", "draft": true },
-  { "id": "spot-02", "name": "富樫館跡", "types": ["統治", "武勇"], "address": "", "lat": null, "lng": null, "description": "", "source": "", "photo": "", "draft": true },
-  { "id": "spot-03", "name": "布市神社", "types": ["武勇", "信仰"], "address": "", "lat": null, "lng": null, "description": "", "source": "", "photo": "", "draft": true },
-  { "id": "spot-04", "name": "富樫家国像", "types": ["統治"], "address": "", "lat": null, "lng": null, "description": "", "source": "", "photo": "", "draft": true },
-  { "id": "spot-05", "name": "稲荷神社", "types": ["武勇", "信仰"], "address": "", "lat": null, "lng": null, "description": "", "source": "", "photo": "", "draft": true },
-  { "id": "spot-06", "name": "大乗寺跡", "types": ["信仰", "学び"], "address": "", "lat": null, "lng": null, "description": "", "source": "", "photo": "", "draft": true },
-  { "id": "spot-07", "name": "郷土資料館NoNo", "types": ["学び"], "address": "", "lat": null, "lng": null, "description": "", "source": "", "photo": "", "draft": true },
-  { "id": "spot-08", "name": "ふるさと歴史館", "types": ["学び"], "address": "", "lat": null, "lng": null, "description": "", "source": "", "photo": "", "draft": true }
+  { "id": "spot-01", "name": "守護所富樫館跡", "types": ["統治"], "address": "", "lat": 36.5288155, "lng": 136.6198572, "description": "", "source": "", "photo": "", "draft": true },
+  { "id": "spot-02", "name": "富樫館跡", "types": ["統治", "武勇"], "address": "", "lat": 36.5325438, "lng": 136.6215896, "description": "", "source": "", "photo": "", "draft": true },
+  { "id": "spot-03", "name": "布市神社", "types": ["武勇", "信仰"], "address": "", "lat": 36.5320182, "lng": 136.6183418, "description": "", "source": "", "photo": "", "draft": true },
+  { "id": "spot-04", "name": "富樫家国像", "types": ["統治"], "address": "", "lat": 36.5318895, "lng": 136.6078525, "description": "", "source": "", "photo": "", "draft": true },
+  { "id": "spot-05", "name": "稲荷神社", "types": ["武勇", "信仰"], "address": "", "lat": 36.5331345, "lng": 136.6010867, "description": "", "source": "", "photo": "", "draft": true },
+  { "id": "spot-06", "name": "大乗寺", "types": ["信仰", "学び"], "address": "", "lat": 36.526783, "lng": 136.6823474, "description": "", "source": "", "photo": "", "draft": true },
+  { "id": "spot-07", "name": "郷土資料館NoNo", "types": ["学び"], "address": "", "lat": 36.5318546, "lng": 136.6149846, "description": "", "source": "", "photo": "", "draft": true },
+  { "id": "spot-08", "name": "ふるさと歴史館", "types": ["学び"], "address": "", "lat": 36.5458782, "lng": 136.59979, "description": "", "source": "", "photo": "", "draft": true },
+  { "id": "spot-09", "name": "賀茂神社社叢", "types": ["信仰"], "address": "", "lat": 36.2886737, "lng": 136.7222299, "description": "", "source": "", "photo": "", "draft": true },
+  { "id": "spot-10", "name": "鳥越一向一揆歷史館", "types": ["学び"], "address": "", "lat": 36.3598827, "lng": 136.5991642, "description": "", "source": "", "photo": "", "draft": true }
 ]
