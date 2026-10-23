@@ -225,11 +225,15 @@ togashi-app/
 │   │   └── spot-detail.js  S5 スポット詳細
 │   └── app.js              画面の切り替え役（最後に読み込む）
 ├── data/
+│   ├── README.md           ★ JSONの書き方（データを直す人は最初に読む）
 │   ├── questions.json      診断の質問（6問・各4択）
 │   ├── types.json          4タイプの説明とおすすめスポット
 │   └── spots.json          スポット8か所の情報
 └── images/                 自分たちで撮影した写真
 ```
+
+> [!TIP]
+> 質問・タイプ・スポットの文章を直すときは、プログラムではなく `data/` のJSONを直します。書き方は **[data/README.md](data/README.md)** にまとめてあります。
 
 > [!NOTE]
 > `index.html` の `<script>` は、**上から順番に**読み込まれます。下のファイルほど上のファイルの関数を使うので、順番を入れ替えないでください。新しい画面を作るときは、`js/screens/` にファイルを足し、`index.html` と `js/app.js` の `SCREENS` に1行ずつ足します。
