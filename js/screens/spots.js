@@ -25,6 +25,31 @@
 // スポットを「おすすめが先頭」の順に並べ替える
 //   戻り値：[{ spot: スポットの情報, recommended: おすすめなら true }, ...]
 //   おすすめは types.json に書かれた順番。残りは spots.json の順番のまま
+function calcDistance(from, to) {
+  const radLat1 = (from.lat * Math.PI) / 180;
+  const radLon1 = (from.lng * Math.PI) / 180;
+  const radLat2 = (to.lat * Math.PI) / 180;
+  const radLon2 = (to.lng * Math.PI) / 180;
+  const latDiff = radLat1 - radLat2;
+  const lonDiff = radLon1 - radLon2;
+  const radLatAvg = (radLat1 + radLat2) / 2.0;
+  const a = 6378137.0;
+  const e2 = 0.006694379990197551;
+  const W = Math.sqrt(1.0 - e2 * Math.sin(radLatAvg) * Math.sin(radLatAvg));
+  const M = a * (1.0 - e2) / (W * W * W);
+  const N = a / W;
+  const dLat = M * latDiff;
+  const dLon = N * Math.cos(radLatAvg) * lonDiff;
+  const meters = Math.sqrt(dLat * dLat + dLon * dLon);
+  const walkingSpeedMetersPerMin = 80;
+  const minutes = Math.ceil(meters / walkingSpeedMetersPerMin);
+
+  return {
+    meters: Math.round(meters),
+    minutes: minutes < 1 ? 1 : minutes
+  };
+}
+
 function orderSpots(spots, typeName) {
   const typeInfo = loadedData.types[typeName];
   const recommendedNames = typeInfo ? typeInfo.spots : [];
