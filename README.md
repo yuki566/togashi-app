@@ -317,11 +317,58 @@ togashi-app/
 
 ## 🤝 開発の進め方
 
-1. 変更は、`main` に直接ではなく、自分用のブランチで行う
-2. GitHub Desktop で「Pull Request」を作る
-3. 全員でレビューしてから `main` に取り込む
-
 環境の準備は、Notionの「開発環境の準備」ページを見てください。
+
+```mermaid
+flowchart LR
+  A["最新にして<br/>ブランチを作る"] --> C["変更して<br/>Live Serverで確認"] --> D["Commit<br/>→ Push"] --> E["Pull Request<br/>全員でレビュー"] --> G["main に<br/>取り込む"] --> H(["公開URLに<br/>反映"])
+  classDef step fill:#33415f,stroke:#c8a95a,color:#f4efe3
+  classDef done fill:#f4efe3,stroke:#56668a,color:#26324a
+  class A,C,D,E,G step
+  class H done
+```
+
+### GitHub Desktop での手順
+
+1. **最新にする**：`Fetch origin` を押し、`Pull origin` が出たら押します（ほかの人の変更を先に取り込みます）
+2. **ブランチを作る**：`Current branch` →（Branch に `main` を選んで）→ `New branch`。名前は下のルールで付けます
+3. **変更する**：VS Code でファイルを直し、Live Server で画面を確認します
+4. **コミットする**：左下の Summary に「何をしたか」を日本語で書き、`Commit to ブランチ名` を押します
+5. **Push する**：`Push origin` を押します（`main` には Push しません）
+6. **Pull Request を作る**：`Create Pull Request` を押すと、ブラウザが開きます。説明欄のチェックリストを埋めて作成します
+7. **レビュー**：全員で確認し、問題なければ `main` に取り込みます（Merge）。`main` に入ると、数分で公開URLに反映されます
+
+### ブランチ名のルール
+
+`main` には直接変更しません。1つの変更につき、1つのブランチ・1つの Pull Request にします。
+
+| 始まり | 使うとき | 例 |
+|---|---|---|
+| `feature/` | 機能を作る・変える | `feature/stamp` |
+| `fix/` | 不具合を直す | `fix/back-button` |
+| `data/` | JSONの中身や写真を足す・直す | `data/spot-01` |
+| `docs/` | README などの説明文 | `docs/readme-setup` |
+
+### Pull Request のチェックリスト
+
+Pull Request を作ると、説明欄に次の確認項目が自動で入ります（[`.github/pull_request_template.md`](.github/pull_request_template.md)）。
+
+- [ ] Live Server で、変えた画面を確認した
+- [ ] スマホの幅でも確認した（ブラウザの開発者ツール `F12` → スマホのアイコン）
+- [ ] 生成AIが書いたコードがあれば、Notion のレビューログに記録した
+- [ ] 機能・データ・ファイル構成を変えたら、README も直した
+- [ ] 写真や文章に、他人の個人情報や、出典のない史実が入っていない
+
+### コミットに本名や大学のメールアドレスを出さない設定
+
+コミットには「名前」と「メールアドレス」が記録され、このリポジトリを見る人なら誰でも見られます。**最初に一度だけ**、次の設定をしてください。
+
+1. GitHub の **Settings → Emails** で **Keep my email addresses private** にチェックを入れ、表示される `数字+ユーザー名@users.noreply.github.com` をコピーします
+2. 同じ画面の **Block command line pushes that expose my email** にもチェックを入れます
+3. GitHub Desktop の **File → Options → Git** で、Name を GitHub のユーザー名に、Email を 1 でコピーしたアドレスにします
+
+> [!NOTE]
+> この設定は、これから作るコミットにだけ効きます。
 
 ---
 
