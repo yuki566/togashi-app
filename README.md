@@ -14,6 +14,7 @@
 ![フレームワークなし](https://img.shields.io/badge/%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E3%83%AF%E3%83%BC%E3%82%AF-%E3%81%AA%E3%81%97-c8a95a?style=flat-square&labelColor=26324a)
 ![ビルド不要](https://img.shields.io/badge/%E3%83%93%E3%83%AB%E3%83%89-%E4%B8%8D%E8%A6%81-c8a95a?style=flat-square&labelColor=26324a)
 ![個人情報の収集なし](https://img.shields.io/badge/%E5%80%8B%E4%BA%BA%E6%83%85%E5%A0%B1%E3%81%AE%E5%8F%8E%E9%9B%86-%E3%81%AA%E3%81%97-c8a95a?style=flat-square&labelColor=26324a)
+[![License: MIT](https://img.shields.io/badge/License-MIT-c8a95a?style=flat-square&labelColor=26324a)](LICENSE)
 
 プロジェクトデザイン実践　チーム番号：CCCA-404-5 / E5
 
@@ -35,6 +36,7 @@
 - [👥 チームとスケジュール](#-チームとスケジュール)
 - [🤝 開発の進め方](#-開発の進め方)
 - [📏 授業のルール](#-授業のルール)
+- [📚 出典・写真・ライセンス](#-出典写真ライセンス)
 
 ---
 
@@ -377,3 +379,27 @@ Pull Request を作ると、説明欄に次の確認項目が自動で入りま�
 - 生成AIが作ったコードは、実行前に全員でレビューし、担当教員に報告します（記録はNotionのレビューログ）
 - 生成AIで作った画像・動画は、アプリにもポスターにも使いません
 - 写真は自分たちで撮影したものを使います
+- 史実は出典のあることだけを書き、創作しません
+
+---
+
+## 📚 出典・写真・ライセンス
+
+### 出典
+
+各スポットの解説の出典は、アプリの詳細画面（S5）の「出典」と、[`data/spots.json`](data/spots.json) の `source` に書いています（書き方は [data/README.md](data/README.md#出典の書き方)）。
+参考にした資料の一覧は、スポットの情報が確定したらここに載せます。
+
+### 写真
+
+アプリに載せる写真は、チームのメンバーが撮影したものだけを使います。生成AIで作った画像や、ネットから保存した画像は使いません。
+
+### ライセンス
+
+| 対象 | 扱い |
+|---|---|
+| プログラム（HTML・CSS・JavaScript） | [MIT License](LICENSE)。自由に使えます |
+| 写真（`images/`） | © 2026 チームE5。**無断転載・転用を禁止します** |
+| 文章（`data/` の質問・説明・解説） | © 2026 チームE5。出典として挙げた資料の著作権は、それぞれの著作者にあります |
+
+README のアイコンとバッジは [Shields.io](https://shields.io/) と [Skill Icons](https://skillicons.dev/)、QRコードは [QR Code Generator（goQR.me）](https://goqr.me/api/) で表示しています。各ロゴの商標は、それぞれの権利者に帰属します。
