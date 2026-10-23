@@ -6,7 +6,7 @@
     2. 画面を1つずつ表示する（showScreen）
 
   画面の流れ
-    ホーム(S1) → 診断(S2) → 結果(S3) → スポット一覧(S4・準備中)
+    ホーム(S1) → 診断(S2) → 結果(S3) → スポット一覧(S4) → スポット詳細(S5)
 
   各画面は「画面名 → 表示する関数」の形で SCREENS に登録されています。
   新しい画面を作るときは、js/screens/ にファイルを足して、ここに1行足します。
@@ -17,7 +17,8 @@ const SCREENS = {
   home: renderHome,       // S1 ホーム   (js/screens/home.js)
   quiz: renderQuiz,       // S2 診断     (js/screens/quiz.js)
   result: renderResult,   // S3 診断結果 (js/screens/result.js)
-  spots: renderSpots,     // S4 スポット一覧（準備中） (js/screens/spots.js)
+  spots: renderSpots,     // S4 スポット一覧 (js/screens/spots.js)
+  spot: renderSpotDetail, // S5 スポット詳細 (js/screens/spot-detail.js)
 };
 
 // 画面を切り替える。params は画面に渡したい情報（例：結果のタイプ名）
