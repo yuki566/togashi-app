@@ -111,7 +111,7 @@
 ## 🗺️ 画面の流れ
 
 ```mermaid
-flowchart LR
+flowchart TB
   S1["S1 ホーム"]
   S2["S2 診断<br/>6問・4択"]
   S3["S3 診断結果"]
