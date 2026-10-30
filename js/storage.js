@@ -26,3 +26,48 @@ function loadResult() {
     return null;
   }
 }
+const STORAGE_KEY_STAMPS =
+  "togashi-app:stamps";
+
+function loadStamps() {
+
+  try {
+
+    const data =
+      localStorage.getItem(
+        STORAGE_KEY_STAMPS
+      );
+
+    return data
+      ? JSON.parse(data)
+      : [];
+
+  } catch (e) {
+
+    return [];
+
+  }
+
+}
+
+function saveStamp(spotId) {
+
+  try {
+
+    const stamps =
+      loadStamps();
+
+    if (!stamps.includes(spotId)) {
+
+      stamps.push(spotId);
+
+      localStorage.setItem(
+        STORAGE_KEY_STAMPS,
+        JSON.stringify(stamps)
+      );
+
+    }
+
+  } catch (e) {}
+
+}
