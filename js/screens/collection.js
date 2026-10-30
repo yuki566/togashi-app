@@ -11,126 +11,56 @@
 
 function renderCollection(root) {
 
-  root.appendChild(
-    el("h1", "富樫図鑑")
-  );
+  root.appendChild(el("h1", "富樫図鑑"));
 
   const stamps = loadStamps();
 
-  const total =
-    loadedData.spots.length;
+  const total = loadedData.spots.length;
 
-  const found =
-    stamps.length;
+  const found = stamps.length;
 
-  root.appendChild(
-    el(
-      "p",
-      "発見数：" + found + " / " + total,
-      "note"
-    )
-  );
+  root.appendChild(el("p","発見数：" + found + " / " + total,"note"));
 
-  const rate =
-    Math.round(found / total * 100);
+  const rate = Math.round(found / total * 100);
 
-  root.appendChild(
-    el(
-      "p",
-      "達成率：" + rate + "%",
-      "note"
-    )
-  );
+  root.appendChild(el("p","達成率：" + rate + "%","note"));
 
-  const list =
-    el("div", null, "fuda-list");
+  const list = el("div", null, "fuda-list");
 
   loadedData.spots.forEach(function (spot) {
 
-    const card =
-      el("div", null, "card");
+    const card = el("div", null, "card");
 
-    const discovered =
-      stamps.includes(spot.id);
+    const discovered = stamps.includes(spot.id);
 
     if (discovered) {
-
-      card.appendChild(
-        el("h2", spot.name)
-      );
-
-      const tags =
-        el("div", null, "detail-tags");
+      card.appendChild(el("h2", spot.name));
+      const tags = el("div", null, "detail-tags");
 
       spot.types.forEach(function (type) {
-
-        tags.appendChild(
-          el(
-            "span",
-            type,
-            "tag type-" + type
-          )
-        );
-
+        tags.appendChild(el("span",type,"tag type-" + type));
       });
 
       card.appendChild(tags);
 
-      card.appendChild(
-        el(
-          "p",
-          spot.description ||
-          "説明は準備中です"
-        )
-      );
+      card.appendChild(el("p",spot.description || "説明は準備中です"));
 
-      card.appendChild(
-        el(
-          "button",
-          "詳細を見る",
-          "btn sub",
-          function () {
-
-            showScreen(
-              "spot",
-              {
-                id: spot.id
-              }
-            );
-
-          }
-        )
-      );
+      card.appendChild(el("button","詳細を見る","btn sub",function () {
+        showScreen("spot",{id: spot.id});
+      }));
 
     } else {
-
-      card.appendChild(
-        el("h2", "？？？？？")
-      );
-
-      card.appendChild(
-        el(
-          "p",
-          "現地を訪れて発見しよう！",
-          "note"
-        )
-      );
-
+      card.appendChild(el("h2", "？？？？？"));
+      card.appendChild(el("p","現地を訪れて発見しよう！","note"));
     }
-
     list.appendChild(card);
-
   });
 
   root.appendChild(list);
 
   root.appendChild(el("button","ゆかりの地を見る","btn sub",function () {
-      const saved =
-        loadResult();
-      showScreen(
-        "spots",
-        { type: saved }
-      );
+      const saved = loadResult();
+      showScreen("spots",{ type: saved });
   }));
 
   root.appendChild(el("button","ホームへ戻る","btn sub",function () {
