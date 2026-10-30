@@ -27,4 +27,14 @@ function renderHome(root) {
       showScreen("result", { type: saved });
     }));
   }
+  root.appendChild(
+  el(
+    "button",
+    "富樫図鑑を見る",
+    "btn sub",
+    function () {
+      showScreen("collection");
+    }
+  )
+);
 }

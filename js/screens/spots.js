@@ -229,6 +229,10 @@ function renderSpots(root, params) {
       showScreen("result", { type: typeName });
     }));
   }
+  root.appendChild(
+  el("button","富樫図鑑を見る","btn sub",function () {
+    showScreen("collection");
+  }));
   root.appendChild(el("button", "ホームに戻る", "btn sub", function () {
     showScreen("home");
   }));
