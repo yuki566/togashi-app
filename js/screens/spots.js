@@ -1,25 +1,9 @@
 /*
-  spots.js : S4 スポット一覧
+  spots.js : S4 スポット一覧（位置情報の保持対応版）
 
-  表示するもの
-    - 8か所のスポットを「木札」の形で並べる
-    - 診断結果のタイプに合うスポット（おすすめ3か所）を先頭にして、「朱印」の印を付ける
-    - 木札を押すと、S5 スポット詳細へ
-    - 「現在地から距離を表示」ボタン → 各スポットまでの距離と徒歩時間を木札に出す
-    - 「結果に戻る」「ホームに戻る」
-
-  params.type : 診断結果のタイプ名（例："統治"）。ない場合は、並べ替えずに表示する
-
-  データ
-    - data/spots.json … スポットの情報（名前、タイプ、緯度・経度など）
-    - data/types.json … タイプごとのおすすめスポット（spots にスポット名が3つ入っている）
-
-  距離の計算について（担当Eとの約束）
-    - 距離の計算は、担当Eが作る calcDistance(from, to) を使う
-        from・to : { lat: 緯度, lng: 経度 }
-        戻り値   : { meters: 距離（m）, minutes: 徒歩の分数 }
-    - calcDistance がまだ無いときは、距離は出さずに「準備中」と表示する
-    - 位置情報は、ボタンを押したときだけ使う（画面を開いただけでは使わない）
+  このファイルは、野々市市の富樫氏ゆかりのスポット一覧画面（S4）を描画し、
+  おすすめスポットの並べ替え、木札の生成、および localStorage を使った
+  現在地・距離の保持（別画面移動でのリセット防止）を行います。
 */
 
 // スポットを「おすすめが先頭」の順に並べ替える
@@ -120,18 +104,21 @@ function makeDistanceArea(list) {
     return area;
   }
 
-  const button = el("button", "現在地から距離を表示", "btn sub loc-btn", function () {
-    button.disabled = true;
+  // 位置情報を取得して画面に反映する共通処理
+  function fetchAndShowPosition(isManual) {
     status.textContent = "現在地を確認しています…";
 
     navigator.geolocation.getCurrentPosition(
       function (position) {          // 成功したとき
-        button.disabled = false;
         const here = { lat: position.coords.latitude, lng: position.coords.longitude };
+        
+        // 【追加】取得した現在地を localStorage に保存する（別画面に移動しても消えないようにする）
+        localStorage.setItem("togashi_last_lat", here.lat);
+        localStorage.setItem("togashi_last_lng", here.lng);
+
         showDistances(list, here, status);
       },
       function (error) {             // 失敗・拒否されたとき
-        button.disabled = false;
         if (error.code === 1) {
           status.textContent = "位置情報の利用が許可されませんでした。距離なしで一覧は使えます。";
         } else {
@@ -140,10 +127,27 @@ function makeDistanceArea(list) {
       },
       { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
     );
+  }
+
+  const button = el("button", "現在地から距離を表示", "btn sub loc-btn", function () {
+    fetchAndShowPosition(true);
   });
 
   area.appendChild(button);
   area.appendChild(status);
+
+  // 【追加】すでに localStorage に保存された現在地があるか確認し、あれば自動で復元して距離を表示する
+  const savedLat = localStorage.getItem("togashi_last_lat");
+  const savedLng = localStorage.getItem("togashi_last_lng");
+  if (savedLat !== null && savedLng !== null) {
+    const here = { lat: parseFloat(savedLat), lng: parseFloat(savedLng) };
+    // 少し遅れて（または描画直後に）距離を計算して表示
+    setTimeout(function () {
+      showDistances(list, here, status);
+      status.textContent = "前回の現在地からの距離を表示しています（再取得するにはボタンを押してください）。";
+    }, 50);
+  }
+
   return area;
 }
 
@@ -167,9 +171,12 @@ function showDistances(list, here, status) {
     }
   });
 
-  status.textContent = count > 0
-    ? "現在地からの距離を表示しました（目安です）。"
-    : "スポットの場所の情報が準備中のため、距離を表示できません。";
+  // 初回取得時のメッセージ（保存データ復元時は makeDistanceArea 側で書き換えるため上書きしない配慮）
+  if (!status.textContent.includes("前回")) {
+    status.textContent = count > 0
+      ? "現在地からの距離を表示しました（目安です）。"
+      : "スポットの場所の情報が準備中のため、距離を表示できません。";
+  }
 }
 
 function renderSpots(root, params) {
