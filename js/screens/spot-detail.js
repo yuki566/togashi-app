@@ -16,15 +16,13 @@
 */
 
 // 地図アプリ（Googleマップ）のURLを作る
-//   座標（緯度・経度）があれば、その場所を開く
-//   座標がまだ無ければ、「スポット名 野々市市」で検索する
+//   緯度・経度ではなく、場所（スポット名＋住所）で検索して開く
+//   こうすると、Googleマップに施設名のピンと情報が出る
+//   住所がまだ無ければ、「スポット名 野々市市」で検索する
 function makeMapUrl(spot) {
   const base = "https://www.google.com/maps/search/?api=1&query=";
-  const hasCoords = typeof spot.lat === "number" && typeof spot.lng === "number";
-  if (hasCoords) {
-    return base + spot.lat + "," + spot.lng;
-  }
-  return base + encodeURIComponent(spot.name + " 野々市市");
+  const place = spot.address ? spot.name + " " + spot.address : spot.name + " 野々市市";
+  return base + encodeURIComponent(place);
 }
 
 // 写真の額縁を作る（写真が無い・読み込めないときは「準備中」の枠）
