@@ -80,7 +80,21 @@ function renderSpotDetail(root, params) {
 
   root.appendChild(makeScroll("解説", spot.description));
   root.appendChild(makeScroll("出典", spot.source));
-  root.appendChild(makeScroll("URL", spot.URL));
+  const urlScroll = el("div", null, "maki");
+  urlScroll.appendChild(el("div", "URL", "maki-title"));
+  
+  if (spot.URL) {
+    const link = el("a", "公式ページを開く", "btn sub");
+    link.href = spot.URL;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    urlScroll.appendChild(link);
+  } else {
+    urlScroll.appendChild(el("p", "（準備中）", "note"));
+  }
+
+  root.appendChild(urlScroll);
+  
   root.appendChild(makeScroll("住所", spot.address));
 
   // 地図アプリで開く（新しいタブで開く）
