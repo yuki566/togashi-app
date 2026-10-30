@@ -124,17 +124,11 @@ function renderCollection(root) {
 
   root.appendChild(list);
 
-  root.appendChild(
-    el(
-      "button",
-      "ホームへ戻る",
-      "btn sub",
-      function () {
-
-        showScreen("home");
-
-      }
-    )
-  );
-
+  root.appendChild(el("button","ゆかりの地を見る","btn sub",function () {
+    showScreen("spots");
+  }));
+  
+  root.appendChild(el("button","ホームへ戻る","btn sub",function () {
+    showScreen("home");
+  }));
 }
