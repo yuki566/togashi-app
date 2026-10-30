@@ -27,7 +27,7 @@ function renderHome(root) {
       showScreen("result", { type: saved });
     }));
   }
-root.appendChild(
+  root.appendChild(
   el(
     "button",
     "富樫図鑑を見る",
