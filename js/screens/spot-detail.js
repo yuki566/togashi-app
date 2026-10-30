@@ -92,7 +92,6 @@ function renderSpotDetail(root, params) {
   } else {
     urlScroll.appendChild(el("p", "（準備中）", "note"));
   }
-
   root.appendChild(urlScroll);
   
   root.appendChild(makeScroll("住所", spot.address));
