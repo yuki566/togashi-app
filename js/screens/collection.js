@@ -1,5 +1,5 @@
 /*
-  collection.js : S6 図鑑画面
+  collection.js : S6 図鑑
 */
 
 function renderCollection(root) {
@@ -7,39 +7,62 @@ function renderCollection(root) {
   root.appendChild(el("h1", "富樫図鑑"));
 
   const stamps = loadStamps();
-  const total = loadedData.spots.length;
+
   const found = stamps.length;
+  const total = loadedData.spots.length;
 
   root.appendChild(
-    el("p", found + " / " + total + " 発見")
+    el("p", "発見数 " + found + " / " + total)
   );
 
-  const rate = Math.round(found / total * 100);
-
   root.appendChild(
-    el("p", "達成率 " + rate + "%", "note")
+    el(
+      "p",
+      "達成率 " +
+      Math.round(found / total * 100) +
+      "%",
+      "note"
+    )
   );
 
   const list = el("div", null, "fuda-list");
 
   loadedData.spots.forEach(function (spot) {
 
-    const unlocked =
+    const opened =
       stamps.includes(spot.id);
 
     const card =
       el("div", null, "fuda");
 
-    if (unlocked) {
+    if (opened) {
 
       card.appendChild(
         el("h3", spot.name)
       );
 
+      const tags =
+        el("div", null, "detail-tags");
+
+      spot.types.forEach(function (t) {
+
+        tags.appendChild(
+          el(
+            "span",
+            t,
+            "tag type-" + t
+          )
+        );
+
+      });
+
+      card.appendChild(tags);
+
       card.appendChild(
         el(
           "p",
-          spot.description || "スポット情報"
+          spot.description ||
+          "解説は準備中です"
         )
       );
 
@@ -52,7 +75,7 @@ function renderCollection(root) {
       card.appendChild(
         el(
           "p",
-          "まだ発見していません",
+          "現地を訪れて発見しよう",
           "note"
         )
       );
@@ -68,12 +91,11 @@ function renderCollection(root) {
   root.appendChild(
     el(
       "button",
-      "ホームに戻る",
+      "ホームへ戻る",
       "btn sub",
       function () {
         showScreen("home");
       }
     )
   );
-
 }
