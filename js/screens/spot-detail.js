@@ -80,6 +80,7 @@ function renderSpotDetail(root, params) {
 
   root.appendChild(makeScroll("解説", spot.description));
   root.appendChild(makeScroll("出典", spot.source));
+  root.appendChild(makeScroll("URL", spot.URL));
   root.appendChild(makeScroll("住所", spot.address));
 
   // 地図アプリで開く（新しいタブで開く）
