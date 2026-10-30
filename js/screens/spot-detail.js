@@ -86,14 +86,10 @@ function renderSpotDetail(root, params) {
   mapLink.target = "_blank";
   mapLink.rel = "noopener";
   root.appendChild(mapLink);
-  root.appendChild(
-  el("button","図鑑登録テスト","btn",function () {
+  root.appendChild(el("button","図鑑登録テスト","btn",function () {
       saveStamp(spot.id);
-      alert(
-        spot.name +
-        "を登録しました"
-      );
-    }));
+      alert(spot.name + "を登録しました");
+  }));
 
   root.appendChild(el("button", "一覧へ戻る", "btn sub", function () {
     showScreen("spots", { type: params.type });
