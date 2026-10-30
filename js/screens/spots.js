@@ -25,6 +25,21 @@
 // スポットを「おすすめが先頭」の順に並べ替える
 //   戻り値：[{ spot: スポットの情報, recommended: おすすめなら true }, ...]
 //   おすすめは types.json に書かれた順番。残りは spots.json の順番のまま
+
+let spotImagesPreloaded = false;
+
+function preloadSpotImages() {
+  if (spotImagesPreloaded) return;
+  spotImagesPreloaded = true;
+
+  loadedData.spots.forEach(function (spot) {
+    if (!spot.photo) return;
+
+    const image = new Image();
+    image.src = "images/" + spot.photo;
+  });
+}
+
 function calcDistance(from, to) {
   const radLat1 = (from.lat * Math.PI) / 180;
   const radLon1 = (from.lng * Math.PI) / 180;
@@ -173,6 +188,8 @@ function showDistances(list, here, status) {
 }
 
 function renderSpots(root, params) {
+  preloadSpotImages();
+
   const typeName = params.type;
   const hasType = Boolean(loadedData.types[typeName]);
 
