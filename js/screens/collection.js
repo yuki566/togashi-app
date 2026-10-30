@@ -1,56 +1,74 @@
 /*
-  collection.js : S6 図鑑
+  collection.js : S6 富樫図鑑
+
+  表示するもの
+    - 発見数
+    - 達成率
+    - 発見済みスポット
+    - 未発見スポット
+    - ホームへ戻る
 */
 
 function renderCollection(root) {
 
-  root.appendChild(el("h1", "富樫図鑑"));
+  root.appendChild(
+    el("h1", "富樫図鑑")
+  );
 
   const stamps = loadStamps();
 
-  const found = stamps.length;
-  const total = loadedData.spots.length;
+  const total =
+    loadedData.spots.length;
 
-  root.appendChild(
-    el("p", "発見数 " + found + " / " + total)
-  );
+  const found =
+    stamps.length;
 
   root.appendChild(
     el(
       "p",
-      "達成率 " +
-      Math.round(found / total * 100) +
-      "%",
+      "発見数：" + found + " / " + total,
       "note"
     )
   );
 
-  const list = el("div", null, "fuda-list");
+  const rate =
+    Math.round(found / total * 100);
+
+  root.appendChild(
+    el(
+      "p",
+      "達成率：" + rate + "%",
+      "note"
+    )
+  );
+
+  const list =
+    el("div", null, "fuda-list");
 
   loadedData.spots.forEach(function (spot) {
 
-    const opened =
+    const card =
+      el("div", null, "card");
+
+    const discovered =
       stamps.includes(spot.id);
 
-    const card =
-      el("div", null, "fuda");
-
-    if (opened) {
+    if (discovered) {
 
       card.appendChild(
-        el("h3", spot.name)
+        el("h2", spot.name)
       );
 
       const tags =
         el("div", null, "detail-tags");
 
-      spot.types.forEach(function (t) {
+      spot.types.forEach(function (type) {
 
         tags.appendChild(
           el(
             "span",
-            t,
-            "tag type-" + t
+            type,
+            "tag type-" + type
           )
         );
 
@@ -62,20 +80,38 @@ function renderCollection(root) {
         el(
           "p",
           spot.description ||
-          "解説は準備中です"
+          "説明は準備中です"
+        )
+      );
+
+      card.appendChild(
+        el(
+          "button",
+          "詳細を見る",
+          "btn sub",
+          function () {
+
+            showScreen(
+              "spot",
+              {
+                id: spot.id
+              }
+            );
+
+          }
         )
       );
 
     } else {
 
       card.appendChild(
-        el("h3", "？？？？？")
+        el("h2", "？？？？？")
       );
 
       card.appendChild(
         el(
           "p",
-          "現地を訪れて発見しよう",
+          "現地を訪れて発見しよう！",
           "note"
         )
       );
@@ -94,8 +130,11 @@ function renderCollection(root) {
       "ホームへ戻る",
       "btn sub",
       function () {
+
         showScreen("home");
+
       }
     )
   );
+
 }
