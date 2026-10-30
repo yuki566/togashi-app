@@ -125,9 +125,14 @@ function renderCollection(root) {
   root.appendChild(list);
 
   root.appendChild(el("button","ゆかりの地を見る","btn sub",function () {
-    showScreen("spots");
+      const saved =
+        loadResult();
+      showScreen(
+        "spots",
+        { type: saved }
+      );
   }));
-  
+
   root.appendChild(el("button","ホームへ戻る","btn sub",function () {
     showScreen("home");
   }));
