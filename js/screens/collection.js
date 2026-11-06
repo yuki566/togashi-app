@@ -50,9 +50,7 @@ function renderCollection(root) {
             }
           },
             function () {
-              alert(
-                "位置情報を取得できませんでした。"
-              );
+              alert("位置情報を取得できませんでした。");
             }
         );
       }
