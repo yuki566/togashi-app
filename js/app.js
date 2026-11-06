@@ -19,6 +19,7 @@ const SCREENS = {
   result: renderResult,   // S3 診断結果 (js/screens/result.js)
   spots: renderSpots,     // S4 スポット一覧 (js/screens/spots.js)
   spot: renderSpotDetail, // S5 スポット詳細 (js/screens/spot-detail.js)
+  collection: renderCollection,
 };
 
 // 画面を切り替える。params は画面に渡したい情報（例：結果のタイプ名）
