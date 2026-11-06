@@ -65,10 +65,9 @@ function renderCollection(root) {
       showScreen("spots",{ type: saved });
     })
   );
-
   root.appendChild(
     el("button","ホームへ戻る","btn sub",function () {
-        showScreen("home");
+      showScreen("home");
     })
   );
 }
