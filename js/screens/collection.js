@@ -6,6 +6,7 @@
     - 達成率
     - 発見済みスポット
     - 未発見スポット
+    - ゆかりの地を見る
     - ホームへ戻る
 */
 
@@ -59,8 +60,8 @@ function renderCollection(root) {
   root.appendChild(list);
 
   root.appendChild(el("button","ゆかりの地を見る","btn sub",function () {
-      const saved = loadResult();
-      showScreen("spots",{ type: saved });
+    const saved = loadResult();
+    showScreen("spots",{ type: saved });
   }));
 
   root.appendChild(el("button","ホームへ戻る","btn sub",function () {
