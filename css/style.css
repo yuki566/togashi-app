@@ -311,26 +311,44 @@ p  { margin: 0 0 12px; }
 
 /* ----- S5：額縁と巻物 ----- */
 
-/* 写真の額縁（金茶の二重線） */
+/* 公式ページへのリンクの額縁（金茶の二重線） */
 .frame {
-  padding: 6px;
+  padding: 14px 16px;
   margin: 4px 4px 18px;
   background: var(--card);
   border: 1px solid var(--main);
   box-shadow: 0 0 0 3px var(--bg), 0 0 0 4px var(--main);
 }
-.frame img {
+a.link-frame {
   display: block;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+  color: var(--text);
+  text-decoration: none;
 }
-/* 写真がまだ無いときの枠（斜めの縞） */
-.photo-empty {
-  aspect-ratio: 4 / 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+a.link-frame:active { background: var(--card-sel); }
+a.link-frame:focus-visible { outline: 3px solid var(--focus); outline-offset: 6px; }
+.link-site {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.link-label {
+  display: block;
+  margin: 4px 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--main);
+}
+.link-domain {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+/* URLがまだ無いときの枠（斜めの縞） */
+.link-empty {
+  text-align: center;
   color: var(--muted);
   font-family: var(--font-sans);
   font-size: 0.85rem;
